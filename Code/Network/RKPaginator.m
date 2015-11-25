@@ -211,7 +211,7 @@ static NSUInteger RKPaginatorDefaultPerPage = 25;
 #pragma clang diagnostic ignored "-Warc-retain-cycles"
     [self.objectRequestOperation setWillMapDeserializedResponseBlock:^id(id deserializedResponseBody) {
         NSError *error = nil;
-        RKMappingOperation *mappingOperation = [[RKMappingOperation alloc] initWithSourceObject:deserializedResponseBody destinationObject:self mapping:self.paginationMapping];
+        RKMappingOperation *mappingOperation = [[RKMappingOperation alloc] initWithSourceObject:[self.objectRequestOperation.HTTPRequestOperation.response allHeaderFields] destinationObject:self mapping:self.paginationMapping];
         BOOL success = [mappingOperation performMapping:&error];
         if (!success) {
             self.pageCount = 0;
